@@ -71,7 +71,7 @@ text_formatting.printHeader('SkyBlock level and Skill levels')
 skyblock_level = profile_specific.get('leveling', {}).get('experience', 0) / 100
 print(f'SkyBlock level: {skyblock_level}')
 
-# todo deal with api off
+# Prints each skills experience and level along with skill average
 skills.getSkillData(profile_specific)
 
 text_formatting.printHeader('Dungeons')
