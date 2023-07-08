@@ -28,6 +28,7 @@ def getDungeonData(data, floor, master_mode):
     else:
         floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
 
+    # check for floor being completed, both checks are needed for regular and master floors
     if 'times_played' not in data:
         print(floor_name, 'has not been attempted yet')
         return
@@ -37,19 +38,20 @@ def getDungeonData(data, floor, master_mode):
         print(floor_name, 'has not been attempted yet')
         return
 
+    # get all the needed data
+    watcher_kills = data.get('watcher_kills', 0).get(str(floor), 0)
+    highest_score = data.get('best_score', 0).get(str(floor), 0)
+    fastest_run = data.get('fastest_time', 0).get(str(floor), 0)
+    fastest_s_plus = data.get('fastest_time_s_plus', 0).get(str(floor), 0)
     completions = data.get('tier_completions', 0).get(str(floor), 0)
 
+    # save values for later
     if completions > 0:
         global total_runs
         total_runs += completions
         if master_mode:
             global master_runs
             master_runs += completions
-
-    watcher_kills = data.get('watcher_kills', 0).get(str(floor), 0)
-    highest_score = data.get('best_score', 0).get(str(floor), 0)
-    fastest_run = data.get('fastest_time', 0).get(str(floor), 0)
-    fastest_s_plus = data.get('fastest_time_s_plus', 0).get(str(floor), 0)
 
     printSmallHeader(floor_name)
     print('Times Attempted:', fmt_num(attempted))
