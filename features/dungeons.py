@@ -25,25 +25,29 @@ def getClassLevels(dungeons_data):
 def getDungeonData(data, floor, master_mode):
     if master_mode:
         floor_name = f'Master Floor {floor}'
+        completions = data.get('tier_completions', 0).get(str(floor), 0)
+        if completions == 0:
+            print(floor_name, 'has not been completed yet')
+            return
+        printSmallHeader(floor_name)
+
     else:
         floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
 
-    # check for floor being completed, both checks are needed for regular and master floors
-    if 'times_played' not in data:
-        print(floor_name, 'has not been attempted yet')
-        return
+        attempted = data.get('times_played', 0).get(str(floor), 0)
+        if attempted == 0:
+            print(floor_name, 'has not been attempted yet')
+            return
 
-    attempted = data.get('times_played', 0).get(str(floor), 0)
-    if attempted == 0:
-        print(floor_name, 'has not been attempted yet')
-        return
+        watcher_kills = data.get('watcher_kills', 0).get(str(floor), 0)
+        completions = data.get('tier_completions', 0).get(str(floor), 0)
+        printSmallHeader(floor_name)
+        print('Times Attempted:', fmt_num(attempted))
+        print('Watcher Kills:', fmt_num(watcher_kills))
 
-    # get all the needed data
-    watcher_kills = data.get('watcher_kills', 0).get(str(floor), 0)
     highest_score = data.get('best_score', 0).get(str(floor), 0)
     fastest_run = data.get('fastest_time', 0).get(str(floor), 0)
     fastest_s_plus = data.get('fastest_time_s_plus', 0).get(str(floor), 0)
-    completions = data.get('tier_completions', 0).get(str(floor), 0)
 
     # save values for later
     if completions > 0:
@@ -53,9 +57,6 @@ def getDungeonData(data, floor, master_mode):
             global master_runs
             master_runs += completions
 
-    printSmallHeader(floor_name)
-    print('Times Attempted:', fmt_num(attempted))
-    print('Watcher Kills:', fmt_num(watcher_kills))
     print('Times Completed:', fmt_num(completions))
     print('Best Score:', fmt_num(highest_score))
     print('Fastest S+ Run:', fmt_time(fastest_s_plus))
