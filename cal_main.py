@@ -35,9 +35,8 @@ def fetchData():
 
 
 data, uuid = fetchData()
-# Todo make function for getting from json so can handle errors there. Also cache data somehow between runs of
-#  the program, maybe on start check creation date of each cached user and git ignore the folder
-#  deal with disabled api
+# todo Cache data somehow between runs of the program, maybe on start check creation date of each cached user and git
+#  ignore the folder. Also deal with disabled api
 
 if data:
     for index, profile in enumerate(data, start=1):
@@ -128,9 +127,11 @@ printHeader('Collections')
 for collection_type in constants['collections']:
     printSmallHeader(collection_type)
     output = ''
-    for collection in constants['collections'][collection_type]:
+    collections_dict = constants['collections'][collection_type]
+    for collection in collections_dict:
         amount = format(profile_specific.get('collection', {}).get(collection, 0), ',')
-        output += f'{collection}: {amount} '
+        display_name = collections_dict.get(collection, collection)
+        output += f'{display_name}: {amount} '
     print(output)
 
 # todo deal with bank api off (missing field in api)
