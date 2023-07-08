@@ -151,9 +151,12 @@ for stat in accessories_data.get('tuning', {}).get('slot_0', {}):
 # todo only mark as important based on rarity (why does hypixel not use internal names here????)
 printHeader('Pets')
 for pet in pet_data:
-    if pet.get('type', '') in constants['important_items']['pets']:
-        # todo format stuff about the pet
-        print(pet)
+    # todo sort important pets, pet candies, pet item (needs to be mapped)
+    pet_exp = pet.get('exp', 0)
+    pet_rarity = pet.get('tier', '')
+    level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
+    print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
+
 
 # todo map api name to display name e.g. zombie -> Revenant Horror
 printHeader('Slayers')

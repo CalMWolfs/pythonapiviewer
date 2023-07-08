@@ -1,5 +1,14 @@
 {
+  "pet_rarity_offset": {
+    "COMMON": 0,
+    "UNCOMMON": 6,
+    "RARE": 11,
+    "EPIC": 16,
+    "LEGENDARY": 20,
+    "MYTHIC": 20
+  },
   "pet_level_xp": [
+    0,
     100,
     110,
     120,

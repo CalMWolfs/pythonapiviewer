@@ -42,7 +42,7 @@
       "FEATHER": "Feather",
       "LEATHER": "Leather",
       "PORK": "Pork",
-      "RAW_CHICKEN": "Raw Chicken",
+      "RAW_CHICKEN": "Chicken",
       "MUTTON": "Mutton",
       "RABBIT": "Rabbit",
       "NETHER_STALK": "Nether Wart"
@@ -50,26 +50,26 @@
     "Mining": {
       "COBBLESTONE": "Cobblestone",
       "COAL": "Coal",
-      "IRON_INGOT": "Iron Ingot",
-      "GOLD_INGOT": "Gold Ingot",
+      "IRON_INGOT": "Iron",
+      "GOLD_INGOT": "Gold",
       "DIAMOND": "Diamond",
       "INK_SACK:4": "Lapis Lazuli",
       "EMERALD": "Emerald",
       "REDSTONE": "Redstone",
       "QUARTZ": "Nether Quartz",
       "OBSIDIAN": "Obsidian",
-      "GLOWSTONE_DUST": "Glowstone Dust",
+      "GLOWSTONE_DUST": "Glowstone",
       "GRAVEL": "Gravel",
       "ICE": "Ice",
       "NETHERRACK": "Netherrack",
       "SAND": "Sand",
       "ENDER_STONE": "End Stone",
-      "MITHRIL_ORE": "Mithril Ore",
+      "MITHRIL_ORE": "Mithril",
       "HARD_STONE": "Hard Stone",
       "GEMSTONE_COLLECTION": "Gemstone",
       "MYCEL": "Mycelium",
       "SAND:1": "Red Sand",
-      "SULPHUR_ORE": "Sulfur Ore"
+      "SULPHUR_ORE": "Sulfur"
     },
     "Combat": {
       "ROTTEN_FLESH": "Rotten Flesh",
@@ -85,12 +85,12 @@
       "CHILI_PEPPER": "Chili Pepper"
     },
     "Foraging": {
-      "LOG": "Oak Log",
-      "LOG:1": "Spruce Log",
-      "LOG:2": "Birch Log",
-      "LOG_2:1": "Dark Oak Log",
-      "LOG_2": "Acacia Log",
-      "LOG:3": "Jungle Log"
+      "LOG": "Oak",
+      "LOG:1": "Spruce",
+      "LOG:2": "Birch",
+      "LOG_2:1": "Dark Oak",
+      "LOG_2": "Acacia",
+      "LOG:3": "Jungle"
     },
     "Fishing": {
       "RAW_FISH": "Raw Fish",
@@ -106,8 +106,8 @@
       "MAGMA_FISH": "Magma Cream"
     },
     "Rift": {
-      "AGARICUS_CAP": "Mushroom",
-      "CADUCOUS_STEM": "Oak Wood",
+      "AGARICUS_CAP": "Agaricus Cap",
+      "CADUCOUS_STEM": "Caducous Stem",
       "HALF_EATEN_CARROT": "Carrot",
       "HEMOVIBE": "Hemovibe",
       "METAL_HEART": "Metal Heart",
