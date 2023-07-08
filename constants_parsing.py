@@ -26,7 +26,6 @@ def getGoldenDragLevel(exp):
     for level, xp_required in enumerate(constants['pet_level_xp'][20:], start=1):
         compound += xp_required
         if exp < float(compound):
-            print('reached', + level - 1)
             return level - 1, formatted
 
     lvl = 101
