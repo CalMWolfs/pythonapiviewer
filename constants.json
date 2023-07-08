@@ -85,12 +85,12 @@
       "CHILI_PEPPER": "Chili Pepper"
     },
     "Foraging": {
-      "LOG": "Oak",
-      "LOG:1": "Spruce",
-      "LOG:2": "Birch",
-      "LOG_2:1": "Dark Oak",
-      "LOG_2": "Acacia",
-      "LOG:3": "Jungle"
+      "LOG": "Oak Wood",
+      "LOG:1": "Spruce Wood",
+      "LOG:2": "Birch Wood",
+      "LOG_2:1": "Dark Oak Wood",
+      "LOG_2": "Acacia Wood",
+      "LOG:3": "Jungle Wood"
     },
     "Fishing": {
       "RAW_FISH": "Raw Fish",

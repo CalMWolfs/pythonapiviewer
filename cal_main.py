@@ -36,6 +36,7 @@ def fetchData():
 data, uuid = fetchData()
 # todo Cache data somehow between runs of the program, maybe on start check creation date of each cached user and git
 #  ignore the folder. Also deal with disabled api
+#  maybe save as a custom json with only necessary info
 
 if data:
     for index, profile in enumerate(data, start=1):
@@ -93,32 +94,42 @@ for dungeon_class in constants['dungeons_classes']:
         dungeons_data.get('player_classes', {}).get(dungeon_class, {}).get('experience', 0))
     print(f'{dungeon_class.capitalize()} {level} with {exp} exp')
 
-printSmallHeader('Dungeons Runs')
 total_completions = total_master_completions = 0
+completed_dungeon = completed_master = True
 
-# todo better handling of things not being attempted/completed
-for floor_num in range(8):
-    runs = dungeons_data.get('dungeon_types', {}).get('catacombs', {}).get('tier_completions', {}).get(str(floor_num), 0)
-    master_runs = dungeons_data.get('dungeon_types', {}).get('master_catacombs', {}).get('tier_completions', {}).get(str(floor_num), 0)
+# todo get other stats fastest run, highest score, watcher kills etc
+for floor in range(8):
+    floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
+    printSmallHeader(floor_name)
+
+    runs = dungeons_data.get('dungeon_types', {}).get('catacombs', {}).get('tier_completions', {}).get(str(floor), 0)
+    master_runs = dungeons_data.get('dungeon_types', {}).get('master_catacombs', {}).get('tier_completions', {}).get(str(floor), 0)
     total_completions += runs + master_runs
     total_master_completions += master_runs
 
-    if runs + master_runs == 0:
-        print(f'Floor {floor_num} not completed')
+    if runs == 0 and floor == 0:
+        completed_dungeon = False
         continue
-    if floor_num == 0:
-        print(f'Entrance completed {format(int(runs), ",")} times')
+
+    print(f'{floor_name} completed {format(int(runs), ",")} times')
+
+    if master_runs == 0 and floor == 1:
+        completed_master = False
         continue
-    print(f'Floor {floor_num} completed {format(int(runs), ",")} times')
-    if master_runs != 0:
-        print(f'Master floor {floor_num} completed {format(int(master_runs), ",")} times')
+
+    if floor != 0:
+        print(f'Master {floor_name} completed {format(int(master_runs), ",")} times')
+
+printSmallHeader('Dungeons Stats')
+if not completed_dungeon:
+    print('Dungeons never completed')
+else:
+    print(f'Total dungeon completions: {format(int(total_completions), ",")}')
+    if completed_master:
+        print(f'Total master mode completions: {format(int(total_master_completions), ",")}')
     else:
-        print(f'Master floor {floor_num} not completed')
-
-
-print(f'Total dungeon completions: {format(int(total_completions), ",")}')
-print(f'Total master mode completions: {format(int(total_master_completions), ",")}')
-print('Secrets: Will do later')
+        print('Master mode never completed')
+    print('Secrets: Will do later')
 
 # todo collection lvl and maybe say if it is maxed?
 printHeader('Collections')
@@ -132,7 +143,6 @@ for collection_type in constants['collections']:
         output += f'{display_name}: {amount} '
     print(output)
 
-# todo deal with bank api off (missing field in api)
 printHeader('Coins')
 print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
 print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
@@ -170,19 +180,28 @@ for slayer in constants['slayers']:
         kills = slayer_data.get(slayer, {}).get('boss_kills_tier_' + str(tier), 0)
         print(f'Tier {tier + 1} kills:', format(kills, ','))
 
-# todo deal with api off?
-#  deal with perks later and their mappings
-#  maybe display total powder as well
-#  maybe just say hotm maxed if 347,000 exp
+# todo deal with perks later and their mappings
 #  calculate nucleus runs done through placed crystals?
-printHeader('Heart of the Mountain')
+printHeader('Heart Of The Mountain')
 level, exp = constants_parsing.getHotmLevel(mining_data.get('experience', 0))
-print(f'HOTM {level} with {exp} exp')
+if level == 7:
+    print('HOTM 7')
+else:
+    print(f'HOTM {level} with {exp} exp')
 print(f'Tokens Spent:', mining_data.get('tokens_spent', 0))
-print('Mithril Powder Available:', format(mining_data.get('powder_mithril_total', 0), ','))
-print('Mithril Powder Spent:', format(mining_data.get('powder_spent_mithril', 0), ','))
-print('Gemstone Powder Available:', format(mining_data.get('powder_gemstone_total', 0), ','))
-print('Gemstone Powder Spent:', format(mining_data.get('powder_spent_gemstone', 0), ','))
+printSmallHeader('Mithril Powder')
+spent = mining_data.get('powder_spent_mithril', 0)
+available = mining_data.get('powder_mithril_total', 0)
+print('Total:', format(available + spent, ','))
+print('Available:', format(available, ','))
+print('Spent:', format(spent, ','))
+printSmallHeader('Gemstone Powder')
+spent = mining_data.get('powder_spent_gemstone', 0)
+available = mining_data.get('powder_gemstone_total', 0)
+print('Total:', format(available + spent, ','))
+print('Available:', format(available, ','))
+print('Spent:', format(spent, ','))
+printSmallHeader('HOTM Perks')
 print('Pickaxe ability:', mining_data.get('selected_pickaxe_ability', 'None'))
 
 # more later
