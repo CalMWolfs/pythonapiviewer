@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons
+from features import skills, dungeons, collections
 
 
 def fetchData():
@@ -84,17 +84,9 @@ dungeons.getClassLevels(dungeons_data)
 printSmallHeader('Dungeons Stats')
 dungeons.getFloorData(dungeons_data.get('dungeon_types', {}))
 
-# todo collection lvl and maybe say if it is maxed?
 printHeader('Collections')
-for collection_type in constants['collections']:
-    printSmallHeader(collection_type)
-    output = ''
-    collections_dict = constants['collections'][collection_type]
-    for collection in collections_dict:
-        amount = format(profile_specific.get('collection', {}).get(collection, 0), ',')
-        display_name = collections_dict.get(collection, collection)
-        output += f'{display_name}: {amount} '
-    print(output)
+# print the single player's collection count for each item
+collections.getCollectionAmount(profile_specific.get('collection', {}))
 
 printHeader('Coins')
 print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
