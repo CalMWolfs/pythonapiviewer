@@ -184,8 +184,7 @@ for slayer in constants['slayers']:
         kills = slayer_data.get(slayer, {}).get('boss_kills_tier_' + str(tier), 0)
         print(f'Tier {tier + 1} kills:', format(kills, ','))
 
-# todo deal with perks later and their mappings
-#  calculate nucleus runs done through placed crystals?
+# todo calculate nucleus runs done through placed crystals?
 printHeader('Heart Of The Mountain')
 level, exp = constants_parsing.getHotmLevel(mining_data.get('experience', 0))
 if level == 7:
@@ -206,7 +205,7 @@ print('Total:', format(available + spent, ','))
 print('Available:', format(available, ','))
 print('Spent:', format(spent, ','))
 
-# could maybe filter stuff here idk
+# todo filter some of these perks
 printSmallHeader('HOTM Perks')
 ability_name = mining_data.get('selected_pickaxe_ability', 'None')
 print('Selected pickaxe ability:', constants['hotm_perks'].get(ability_name, ability_name))
@@ -215,6 +214,5 @@ for perk in mining_data.get('nodes', {}):
         continue
     perk_name = constants['hotm_perks'].get(perk, perk)
     print(perk_name + ': Level', mining_data.get('nodes', {}).get(perk, 0))
-
 
 # more later
