@@ -201,7 +201,16 @@ available = mining_data.get('powder_gemstone_total', 0)
 print('Total:', format(available + spent, ','))
 print('Available:', format(available, ','))
 print('Spent:', format(spent, ','))
+
+# could maybe filter stuff here idk
 printSmallHeader('HOTM Perks')
-print('Pickaxe ability:', mining_data.get('selected_pickaxe_ability', 'None'))
+ability_name = mining_data.get('selected_pickaxe_ability', 'None')
+print('Selected pickaxe ability:', constants['hotm_perks'].get(ability_name, ability_name))
+for perk in mining_data.get('nodes', {}):
+    if 'toggle' in perk:
+        continue
+    perk_name = constants['hotm_perks'].get(perk, perk)
+    print(perk_name + ': Level', mining_data.get('nodes', {}).get(perk, 0))
+
 
 # more later
