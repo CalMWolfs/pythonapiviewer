@@ -163,7 +163,11 @@ for pet in pet_data:
     # todo sort important pets, pet candies, pet item (needs to be mapped)
     pet_exp = pet.get('exp', 0)
     pet_rarity = pet.get('tier', '')
-    level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
+
+    if pet.get('type', '') == 'GOLDEN_DRAGON':
+        level, exp = constants_parsing.getGoldenDragLevel(pet_exp)
+    else:
+        level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
     print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
 
 printHeader('Slayers')

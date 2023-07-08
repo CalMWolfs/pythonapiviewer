@@ -19,6 +19,25 @@ def getLevel(array, max_level, exp, overflow=0, start_location=0):
     return lvl
 
 
+def getGoldenDragLevel(exp):
+    formatted = format(int(exp), ',')
+
+    compound = 0
+    for level, xp_required in enumerate(constants['pet_level_xp'][20:], start=1):
+        compound += xp_required
+        if exp < float(compound):
+            print('reached', + level - 1)
+            return level - 1, formatted
+
+    lvl = 101
+    compound += 5555
+    while exp > compound and lvl != 200:
+        lvl += 1
+        compound += 1886700
+
+    return lvl, formatted
+
+
 def getSkillLevel(skill, value):
     formatted = format(int(value), ',')
 
@@ -29,8 +48,6 @@ def getSkillLevel(skill, value):
         levelling_data = 'social_xp'
 
     level = getLevel(constants[levelling_data], constants['leveling_caps'][skill], value)
-    if level == 0:
-        level = 1
     return level, formatted
 
 
@@ -45,9 +62,10 @@ def getPetLevel(rarity, value):
     formatted = format(int(value), ',')
 
     offset = constants["pet_rarity_offset"].get(rarity, 0)
-    # todo golden dragon
     level = getLevel(constants['pet_level_xp'], 100, value, start_location=offset)
 
+    if level == 0:
+        level = 1
     return level, formatted
 
 
