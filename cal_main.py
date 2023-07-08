@@ -121,7 +121,6 @@ print(f'Total dungeon completions: {format(int(total_completions), ",")}')
 print(f'Total master mode completions: {format(int(total_master_completions), ",")}')
 print('Secrets: Will do later')
 
-# todo map api names to actual names
 # todo collection lvl and maybe say if it is maxed?
 printHeader('Collections')
 for collection_type in constants['collections']:
