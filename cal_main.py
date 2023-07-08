@@ -3,8 +3,9 @@ import json
 
 from secrets import API_KEY
 import constants_parsing
-from features import skills
-from utils import text_formatting
+from utils.text_formatting import printSmallHeader, printHeader
+
+from features import skills, dungeons
 
 
 def fetchData():
@@ -67,64 +68,26 @@ mining_data = profile_specific.get('mining_core', {})
 with open('constants.json') as file:
     constants = json.load(file)
 
-text_formatting.printHeader('SkyBlock level and Skill levels')
+printHeader('SkyBlock level and Skill levels')
 skyblock_level = profile_specific.get('leveling', {}).get('experience', 0) / 100
 print(f'SkyBlock level: {skyblock_level}')
 
 # Prints each skills experience and level along with skill average
 skills.getSkillData(profile_specific)
 
-text_formatting.printHeader('Dungeons')
-level, exp = constants_parsing.getCatacombsLevel(
-    dungeons_data.get('dungeon_types', {}).get('catacombs', {}).get('experience', 0))
-print(f'Catacombs {level} with {exp} exp')
-
-for dungeon_class in constants['dungeons_classes']:
-    level, exp = constants_parsing.getCatacombsLevel(
-        dungeons_data.get('player_classes', {}).get(dungeon_class, {}).get('experience', 0))
-    print(f'{dungeon_class.capitalize()} {level} with {exp} exp')
-
-total_completions = total_master_completions = 0
-completed_dungeon = completed_master = True
-
-# todo get other stats fastest run, highest score, watcher kills etc
-for floor in range(8):
-    floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
-    text_formatting.printSmallHeader(floor_name)
-
-    runs = dungeons_data.get('dungeon_types', {}).get('catacombs', {}).get('tier_completions', {}).get(str(floor), 0)
-    master_runs = dungeons_data.get('dungeon_types', {}).get('master_catacombs', {}).get('tier_completions', {}).get(str(floor), 0)
-    total_completions += runs + master_runs
-    total_master_completions += master_runs
-
-    if runs == 0 and floor == 0:
-        completed_dungeon = False
-        continue
-
-    print(f'{floor_name} completed {format(int(runs), ",")} times')
-
-    if master_runs == 0 and floor == 1:
-        completed_master = False
-        continue
-
-    if floor != 0:
-        print(f'Master {floor_name} completed {format(int(master_runs), ",")} times')
-
-text_formatting.printSmallHeader('Dungeons Stats')
-if not completed_dungeon:
-    print('Dungeons never completed')
-else:
-    print(f'Total dungeon completions: {format(int(total_completions), ",")}')
-    if completed_master:
-        print(f'Total master mode completions: {format(int(total_master_completions), ",")}')
-    else:
-        print('Master mode never completed')
-    print('Secrets: Will do later')
+printHeader('Dungeons')
+# print dungeons level
+dungeons.getDungeonsLevel(dungeons_data)
+# print class levels
+dungeons.getClassLevels(dungeons_data)
+# print stats for each floor than overall stats
+printSmallHeader('Dungeons Stats')
+dungeons.getFloorData(dungeons_data.get('dungeon_types', {}))
 
 # todo collection lvl and maybe say if it is maxed?
-text_formatting.printHeader('Collections')
+printHeader('Collections')
 for collection_type in constants['collections']:
-    text_formatting.printSmallHeader(collection_type)
+    printSmallHeader(collection_type)
     output = ''
     collections_dict = constants['collections'][collection_type]
     for collection in collections_dict:
@@ -133,22 +96,22 @@ for collection_type in constants['collections']:
         output += f'{display_name}: {amount} '
     print(output)
 
-text_formatting.printHeader('Coins')
+printHeader('Coins')
 print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
 print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
 
-text_formatting.printHeader('Accessories')
+printHeader('Accessories')
 mp = accessories_data.get('highest_magical_power', 0)
 print(f'Magical Power:', format(mp, ','))
 print(f'Selected Power:', accessories_data.get('selected_power', 'None'))
-text_formatting.printSmallHeader('Tuning Points')
+printSmallHeader('Tuning Points')
 for stat in accessories_data.get('tuning', {}).get('slot_0', {}):
     allocated = accessories_data.get('tuning', {}).get('slot_0', {}).get(stat, 0)
     if allocated != 0:
         print(f'{stat}:', allocated, 'points')
 
 # todo only mark as important based on rarity (why does hypixel not use internal names here????)
-text_formatting.printHeader('Pets')
+printHeader('Pets')
 for pet in pet_data:
     # todo sort important pets, pet candies, pet item (needs to be mapped)
     pet_exp = pet.get('exp', 0)
@@ -160,10 +123,10 @@ for pet in pet_data:
         level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
     print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
 
-text_formatting.printHeader('Slayers')
+printHeader('Slayers')
 for slayer in constants['slayers']:
     slayer_name = constants['slayers'].get(slayer, slayer)
-    text_formatting.printSmallHeader(slayer_name)
+    printSmallHeader(slayer_name)
     level, exp = constants_parsing.getSlayerLevel(slayer, slayer_data.get(slayer, {}).get('xp', 0))
     if exp == '0':
         print(f'No {slayer_name} progress')
@@ -175,20 +138,20 @@ for slayer in constants['slayers']:
         print(f'Tier {tier + 1} kills:', format(kills, ','))
 
 # todo calculate nucleus runs done through placed crystals?
-text_formatting.printHeader('Heart Of The Mountain')
+printHeader('Heart Of The Mountain')
 level, exp = constants_parsing.getHotmLevel(mining_data.get('experience', 0))
 if level == 7:
     print('HOTM 7')
 else:
     print(f'HOTM {level} with {exp} exp')
 print(f'Tokens Spent:', mining_data.get('tokens_spent', 0))
-text_formatting.printSmallHeader('Mithril Powder')
+printSmallHeader('Mithril Powder')
 spent = mining_data.get('powder_spent_mithril', 0)
 available = mining_data.get('powder_mithril_total', 0)
 print('Total:', format(available + spent, ','))
 print('Available:', format(available, ','))
 print('Spent:', format(spent, ','))
-text_formatting.printSmallHeader('Gemstone Powder')
+printSmallHeader('Gemstone Powder')
 spent = mining_data.get('powder_spent_gemstone', 0)
 available = mining_data.get('powder_gemstone_total', 0)
 print('Total:', format(available + spent, ','))
@@ -196,7 +159,7 @@ print('Available:', format(available, ','))
 print('Spent:', format(spent, ','))
 
 # todo filter some of these perks
-text_formatting.printSmallHeader('HOTM Perks')
+printSmallHeader('HOTM Perks')
 ability_name = mining_data.get('selected_pickaxe_ability', 'None')
 print('Selected pickaxe ability:', constants['hotm_perks'].get(ability_name, ability_name))
 for perk in mining_data.get('nodes', {}):

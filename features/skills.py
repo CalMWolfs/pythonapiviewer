@@ -1,7 +1,11 @@
 import json
 
 import constants_parsing
-from utils import text_formatting
+from utils.text_formatting import printSmallHeader
+
+
+with open('constants.json') as file:
+    constants = json.load(file)
 
 
 def getSkillData(player_data):
@@ -19,9 +23,5 @@ def getSkillData(player_data):
 
         print(f'{skill.capitalize()} {level} with {exp} exp')
 
-    text_formatting.printSmallHeader('Average Skill level')
+    printSmallHeader('Average Skill level')
     print('Average Skill Level:', round(total_level / 9, 2))
-
-
-with open('constants.json') as file:
-    constants = json.load(file)
