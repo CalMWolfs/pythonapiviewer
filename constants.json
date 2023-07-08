@@ -1,0 +1,144 @@
+{
+  "skills": [
+    "combat",
+    "taming",
+    "farming",
+    "mining",
+    "foraging",
+    "fishing",
+    "enchanting",
+    "alchemy",
+    "carpentry",
+    "runecrafting",
+    "social2"
+  ],
+  "dungeons_classes": [
+    "healer",
+    "mage",
+    "berserk",
+    "archer",
+    "tank"
+  ],
+  "slayers": [
+    "zombie",
+    "spider",
+    "wolf",
+    "enderman",
+    "blaze",
+    "vampire"
+  ],
+  "collections": {
+    "Farming": [
+      "WHEAT",
+      "CARROT_ITEM",
+      "POTATO_ITEM",
+      "PUMPKIN",
+      "MELON",
+      "SEEDS",
+      "MUSHROOM_COLLECTION",
+      "INK_SACK:3",
+      "CACTUS",
+      "SUGAR_CANE",
+      "FEATHER",
+      "LEATHER",
+      "PORK",
+      "RAW_CHICKEN",
+      "MUTTON",
+      "RABBIT",
+      "NETHER_STALK"
+    ],
+    "Mining": [
+      "COBBLESTONE",
+      "COAL",
+      "IRON_INGOT",
+      "GOLD_INGOT",
+      "DIAMOND",
+      "INK_SACK:4",
+      "EMERALD",
+      "REDSTONE",
+      "QUARTZ",
+      "OBSIDIAN",
+      "GLOWSTONE_DUST",
+      "GRAVEL",
+      "ICE",
+      "NETHERRACK",
+      "SAND",
+      "ENDER_STONE",
+      "MITHRIL_ORE",
+      "HARD_STONE",
+      "GEMSTONE_COLLECTION",
+      "MYCEL",
+      "SAND:1",
+      "SULPHUR_ORE"
+    ],
+    "Combat": [
+      "ROTTEN_FLESH",
+      "BONE",
+      "STRING",
+      "SPIDER_EYE",
+      "SULPHUR",
+      "ENDER_PEARL",
+      "GHAST_TEAR",
+      "SLIME_BALL",
+      "BLAZE_ROD",
+      "MAGMA_CREAM",
+      "CHILI_PEPPER"
+    ],
+    "Foraging": [
+      "LOG",
+      "LOG:1",
+      "LOG:2",
+      "LOG_2:1",
+      "LOG_2",
+      "LOG:3"
+    ],
+    "Fishing": [
+      "RAW_FISH",
+      "RAW_FISH:1",
+      "RAW_FISH:2",
+      "RAW_FISH:3",
+      "PRISMARINE_SHARD",
+      "PRISMARINE_CRYSTALS",
+      "CLAY_BALL",
+      "WATER_LILY",
+      "INK_SACK",
+      "SPONGE",
+      "MAGMA_FISH"
+    ],
+    "Rift": [
+      "AGARICUS_CAP",
+      "CADUCOUS_STEM",
+      "HALF_EATEN_CARROT",
+      "HEMOVIBE",
+      "METAL_HEART",
+      "WILTED_BERBERIS"
+    ]
+  },
+  "important_items": {
+    "pets": [
+      "GOLDEN_DRAGON",
+      "ENDER_DRAGON",
+      "SPIRIT",
+      "BABY_YETI",
+      "BLUE_WHALE",
+      "ELEPHANT",
+      "DOLPHIN",
+      "PARROT",
+      "MONKEY",
+      "GRIFFIN",
+      "SCATHA",
+      "BLACK_CAT",
+      "ENDERMAN",
+      "ENDERMAN",
+      "BAL"
+    ]
+  },
+    "highest_slayer_tier": {
+    "zombie": 5,
+    "spider": 4,
+    "wolf": 4,
+    "enderman": 4,
+    "blaze": 4,
+    "vampire": 5
+  }
+}
