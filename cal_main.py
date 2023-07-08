@@ -20,7 +20,6 @@ def fetchData():
         response = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{username}')
         response.raise_for_status()
         player_uuid = response.json()['id']
-        print(f'THe uuid for {username} is: {player_uuid}')
         print('Getting player data from the Hypixel API')
         response = requests.get('https://api.hypixel.net/skyblock/profiles?key=' + API_KEY + '&uuid=' + player_uuid)
         response.raise_for_status()
@@ -157,13 +156,15 @@ for pet in pet_data:
     level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
     print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
 
-
-# todo map api name to display name e.g. zombie -> Revenant Horror
 printHeader('Slayers')
 for slayer in constants['slayers']:
-    printSmallHeader(slayer)
+    slayer_name = constants['slayers'].get(slayer, slayer)
+    printSmallHeader(slayer_name)
     level, exp = constants_parsing.getSlayerLevel(slayer, slayer_data.get(slayer, {}).get('xp', 0))
-    print(f'{slayer} {level} with {exp} exp')
+    if exp == '0':
+        print(f'No {slayer_name} progress')
+        continue
+    print(f'{slayer_name} {level} with {exp} exp')
 
     for tier in range(constants['highest_slayer_tier'][slayer]):
         kills = slayer_data.get(slayer, {}).get('boss_kills_tier_' + str(tier), 0)

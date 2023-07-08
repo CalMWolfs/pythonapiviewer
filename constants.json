@@ -19,14 +19,14 @@
     "archer",
     "tank"
   ],
-  "slayers": [
-    "zombie",
-    "spider",
-    "wolf",
-    "enderman",
-    "blaze",
-    "vampire"
-  ],
+  "slayers": {
+    "zombie": "Revenant Horror",
+    "spider": "Tarantula Broodfather",
+    "wolf": "Sven Packmaster",
+    "enderman": "Voidgloom Seraph",
+    "blaze": "Inferno Demonlord",
+    "vampire": "Riftstalker Bloodfiend"
+  },
   "collections": {
     "Farming": {
       "WHEAT": "Wheat",
