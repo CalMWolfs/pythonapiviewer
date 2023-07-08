@@ -9,10 +9,9 @@ with open('constants.json') as file:
 
 # only the single user's count not whole coop
 def getCollectionAmount(data):
-    counter = 0
-    output = ""
-
     for collection_type in constants['collections']:
+        counter = 0
+        output = ""
         printSmallHeader(collection_type)
         collections_dict = constants['collections'][collection_type]
 
@@ -26,5 +25,5 @@ def getCollectionAmount(data):
                 print(output)
                 output = ""
 
-    if output:
-        print(output)
+        if output:
+            print(output)
