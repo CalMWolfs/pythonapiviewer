@@ -17,7 +17,7 @@ while True:
         trimid = response.json()['id']
         response_timemojang = response.elapsed.total_seconds()  # Calculate the response time in seconds
         print('Response time:', response_timemojang, 'seconds')
-        apikey = 'c8dff56d-3617-427c-bb9e-55c05ef8ceed'  # PUT YOUR API KEY HERE!
+        apikey = ''  # PUT YOUR API KEY HERE!
         print('UUID is', trimid)
         print('Pinging Hypixel API...')
         headers = {'Accept': 'skyblock/profiles?key=' + apikey + '&uuid=' + trimid}
