@@ -85,6 +85,8 @@ printSmallHeader('Dungeons Stats')
 dungeons.getFloorData(dungeons_data.get('dungeon_types', {}))
 
 printHeader('Collections')
+# saves highest tier data for later
+collections.saveCollectionLevel(profile_specific.get('unlocked_coll_tiers', {}))
 # print the single player's collection count for each item
 collections.getCollectionAmount(profile_specific.get('collection', {}))
 

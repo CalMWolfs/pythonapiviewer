@@ -6,24 +6,28 @@ from utils.text_formatting import printSmallHeader, fmt_num
 with open('constants.json') as file:
     constants = json.load(file)
 
+highest_tiers = {}
+
 
 # only the single user's count not whole coop
 def getCollectionAmount(data):
     for collection_type in constants['collections']:
-        counter = 0
-        output = ""
         printSmallHeader(collection_type)
         collections_dict = constants['collections'][collection_type]
 
         for collection in collections_dict:
             amount = fmt_num(data.get(collection, 0))
             display_name = collections_dict.get(collection, collection)
-            output += f'{display_name}: {amount} '
-            counter += 1
+            print(f'{display_name} {highest_tiers.get(collection, 0)} with {amount} collected')
 
-            if counter % 4 == 0:
-                print(output)
-                output = ""
 
-        if output:
-            print(output)
+# saves the highest collection tier for each item. Currently no way to tell if it is maxed or not
+def saveCollectionLevel(data):
+    for unlocked_tier in data:
+        collection, tier = unlocked_tier.rsplit("_", 1)
+        if collection not in highest_tiers or int(tier) > int(highest_tiers[collection]):
+            highest_tiers[collection] = tier
+
+    for collection in highest_tiers:
+        if highest_tiers.get(collection) == '-1':
+            highest_tiers[collection] = '0'
