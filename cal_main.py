@@ -3,6 +3,7 @@ import json
 
 from secrets import API_KEY
 import constants_parsing
+from features import skills
 
 
 def printHeader(text):
@@ -78,11 +79,7 @@ skyblock_level = profile_specific.get('leveling', {}).get('experience', 0) / 100
 print(f'SkyBlock level: {skyblock_level}')
 
 # todo deal with api off
-for skill in constants['skills']:
-    level, exp = constants_parsing.getSkillLevel(skill, profile_specific.get('experience_skill_' + skill, 0))
-    if skill == 'social2':
-        skill = 'social'
-    print(f'{skill.capitalize()} {level} with {exp} exp')
+skills.getSkillData(profile_specific)
 
 printHeader('Dungeons')
 level, exp = constants_parsing.getCatacombsLevel(
