@@ -1,7 +1,7 @@
 import json
 
 import constants_parsing
-from utils.text_formatting import printSmallHeader, fmt_num, fmt_time
+from utils.text_utils import printSmallHeader, fmt_num, fmt_time
 
 with open('constants.json') as file:
     constants = json.load(file)

@@ -1,6 +1,6 @@
 import json
 
-from utils.text_formatting import printSmallHeader, fmt_num
+from utils.text_utils import printSmallHeader, fmt_num
 
 
 with open('constants.json') as file:

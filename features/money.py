@@ -1,4 +1,4 @@
-from utils.text_formatting import fmt_num
+from utils.text_utils import fmt_num
 
 
 def getBank(data):

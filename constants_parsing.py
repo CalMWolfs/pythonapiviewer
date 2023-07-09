@@ -1,6 +1,6 @@
 import json
 
-from utils.text_formatting import fmt_num
+from utils.text_utils import fmt_num
 
 
 def getLevel(array, max_level, exp, overflow=0, start_location=0):

@@ -1,7 +1,7 @@
 import json
 
 import constants_parsing
-from utils.text_formatting import printSmallHeader
+from utils.text_utils import printSmallHeader
 
 
 with open('constants.json') as file:

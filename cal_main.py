@@ -2,7 +2,7 @@ import requests
 import json
 
 from secrets import API_KEY
-from utils.text_formatting import printSmallHeader, printHeader
+from utils.text_utils import printSmallHeader, printHeader
 
 from features import skills, dungeons, collections, accessories, pets, money, slayers, mining, general
 
