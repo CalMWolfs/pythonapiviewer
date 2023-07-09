@@ -68,6 +68,7 @@ mining_data = profile_specific.get('mining_core', {})
 with open('constants.json') as file:
     constants = json.load(file)
 
+# todo move
 printHeader('SkyBlock level and Skill levels')
 skyblock_level = profile_specific.get('leveling', {}).get('experience', 0) / 100
 print(f'SkyBlock level: {skyblock_level}')
@@ -90,9 +91,14 @@ collections.saveCollectionLevel(profile_specific.get('unlocked_coll_tiers', {}))
 # print the single player's collection count for each item
 collections.getCollectionAmount(profile_specific.get('collection', {}))
 
+# todo move
 printHeader('Coins')
 print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
 print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
+
+# get networth for user
+# networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
+# networth_data = networth.json()
 
 printHeader('Accessories')
 mp = accessories_data.get('highest_magical_power', 0)
