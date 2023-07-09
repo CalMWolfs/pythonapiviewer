@@ -1,5 +1,7 @@
 import json
 
+from utils.text_utils import fmt_num
+
 
 def getLevel(array, max_level, exp, overflow=0, start_location=0):
     compound = 0
@@ -20,7 +22,7 @@ def getLevel(array, max_level, exp, overflow=0, start_location=0):
 
 
 def getGoldenDragLevel(exp):
-    formatted = format(int(exp), ',')
+    formatted = fmt_num(exp)
 
     compound = 0
     for level, xp_required in enumerate(constants['pet_level_xp'][20:], start=1):
@@ -38,7 +40,7 @@ def getGoldenDragLevel(exp):
 
 
 def getSkillLevel(skill, value):
-    formatted = format(int(value), ',')
+    formatted = fmt_num(value)
 
     levelling_data = 'skill_xp'
     if skill == 'runecrafting':
@@ -51,16 +53,16 @@ def getSkillLevel(skill, value):
 
 
 def getCatacombsLevel(value):
-    formatted = format(int(value), ',')
+    formatted = fmt_num(value)
     level = getLevel(constants['catacombs_xp'], 50, value, 200000000)
 
     return level, formatted
 
 
 def getPetLevel(rarity, value):
-    formatted = format(int(value), ',')
+    formatted = fmt_num(value)
 
-    offset = constants["pet_rarity_offset"].get(rarity, 0)
+    offset = constants['pet_rarity_offset'].get(rarity, 0)
     level = getLevel(constants['pet_level_xp'], 100, value, start_location=offset)
 
     if level == 0:
@@ -69,7 +71,7 @@ def getPetLevel(rarity, value):
 
 
 def getSlayerLevel(slayer, value):
-    formatted = format(int(value), ',')
+    formatted = fmt_num(value)
     levelling_data = 'slayer'
     if slayer == 'vampire':
         levelling_data = 'vampire'
@@ -79,7 +81,7 @@ def getSlayerLevel(slayer, value):
 
 
 def getHotmLevel(value):
-    formatted = format(int(value), ',')
+    formatted = fmt_num(value)
     level = getLevel(constants['hotm_xp'], 7, value)
 
     return level, formatted

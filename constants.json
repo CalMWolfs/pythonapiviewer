@@ -115,23 +115,58 @@
     }
   },
   "important_items": {
-    "pets": [
-      "GOLDEN_DRAGON",
-      "ENDER_DRAGON",
-      "SPIRIT",
-      "BABY_YETI",
-      "BLUE_WHALE",
-      "ELEPHANT",
-      "DOLPHIN",
-      "PARROT",
-      "MONKEY",
-      "GRIFFIN",
-      "SCATHA",
-      "BLACK_CAT",
-      "ENDERMAN",
-      "ENDERMAN",
-      "BAL"
-    ]
+    "pets": {
+      "GOLDEN_DRAGON": [
+        "LEGENDARY"
+      ],
+      "ENDER_DRAGON": [
+        "EPIC",
+        "LEGENDARY"
+      ],
+      "SPIRIT": [
+        "LEGENDARY"
+      ],
+      "BABY_YETI": [
+        "LEGENDARY"
+      ],
+      "BLUE_WHALE": [
+        "LEGENDARY"
+      ],
+      "ELEPHANT": [
+        "LEGENDARY"
+      ],
+      "DOLPHIN": [
+        "LEGENDARY"
+      ],
+      "PARROT": [
+        "LEGENDARY"
+      ],
+      "MONKEY": [
+        "LEGENDARY"
+      ],
+      "GRIFFIN": [
+        "LEGENDARY"
+      ],
+      "SCATHA": [
+        "RARE",
+        "EPIC",
+        "LEGENDARY"
+      ],
+      "BLACK_CAT": [
+        "LEGENDARY"
+      ],
+      "ENDERMAN": [
+        "LEGENDARY",
+        "MYTHIC"
+      ],
+      "BAL": [
+        "LEGENDARY"
+      ],
+      "PHOENIX": [
+        "EPIC",
+        "LEGENDARY"
+      ]
+    }
   },
   "highest_slayer_tier": {
     "zombie": 5,
@@ -171,5 +206,15 @@
     "maniac_miner": "Maniac Miner",
     "random_event": "Random Event",
     "special_0": "Peak of the Mountain"
+  },
+  "tuning_points": {
+    "health": "Health",
+    "defense": "Defense",
+    "walk_speed": "Speed",
+    "strength": "Strength",
+    "critical_damage": "Crit Damage",
+    "critical_chance": "Crit Chance",
+    "attack_speed": "Attack Speed",
+    "intelligence": "Intelligence"
   }
 }
