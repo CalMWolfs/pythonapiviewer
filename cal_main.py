@@ -96,7 +96,7 @@ printHeader('Coins')
 print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
 print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
 
-# get networth for user
+# get networth for user, not used rn but this is how you get the json that breaks down the networth categorically
 # networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
 # networth_data = networth.json()
 
@@ -104,7 +104,6 @@ printHeader('Accessories')
 # print magical power, selected power and tuning points allocation
 accessories.getAccessoryData(accessories_data)
 
-# todo only mark as important based on rarity (why does hypixel not use internal names here????)
 printHeader('Pets')
 for pet in pet_data:
     # todo sort important pets, pet candies, pet item (needs to be mapped)
