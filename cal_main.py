@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections, accessories, pets
+from features import skills, dungeons, collections, accessories, pets, money
 
 
 def fetchData():
@@ -91,10 +91,10 @@ collections.saveCollectionLevel(profile_specific.get('unlocked_coll_tiers', {}))
 # print the single player's collection count for each item
 collections.getCollectionAmount(profile_specific.get('collection', {}))
 
-# todo move
+# todo make not possibly null
 printHeader('Coins')
-print('Purse:', format(int(profile_specific.get('coin_purse', 0)), ','))
-print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
+money.printPurse(profile_specific)
+money.printBank(profile)
 
 # get networth for user, not used rn but this is how you get the json that breaks down the networth categorically
 # networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
@@ -105,9 +105,9 @@ printHeader('Accessories')
 accessories.getAccessoryData(accessories_data)
 
 printHeader('Pets')
-
+# only prints the pet stats for the 'important' pets, when not text based important pets should be removed
 pets.getImportantPets(pet_data)
-
+# prints general stats about pets, for now only pet score but more later
 pets.getGeneralPetData(profile_specific)
 
 printHeader('Slayers')

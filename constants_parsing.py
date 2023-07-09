@@ -62,7 +62,7 @@ def getCatacombsLevel(value):
 def getPetLevel(rarity, value):
     formatted = fmt_num(value)
 
-    offset = constants["pet_rarity_offset"].get(rarity, 0)
+    offset = constants['pet_rarity_offset'].get(rarity, 0)
     level = getLevel(constants['pet_level_xp'], 100, value, start_location=offset)
 
     if level == 0:

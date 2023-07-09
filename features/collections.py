@@ -24,7 +24,7 @@ def getCollectionAmount(data):
 # saves the highest collection tier for each item. Currently no way to tell if it is maxed or not
 def saveCollectionLevel(data):
     for unlocked_tier in data:
-        collection, tier = unlocked_tier.rsplit("_", 1)
+        collection, tier = unlocked_tier.rsplit('_', 1)
         if collection not in highest_tiers or int(tier) > int(highest_tiers[collection]):
             highest_tiers[collection] = tier
 
