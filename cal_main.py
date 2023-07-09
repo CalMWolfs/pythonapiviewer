@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections, accessories
+from features import skills, dungeons, collections, accessories, pets
 
 
 def fetchData():
@@ -105,16 +105,10 @@ printHeader('Accessories')
 accessories.getAccessoryData(accessories_data)
 
 printHeader('Pets')
-for pet in pet_data:
-    # todo sort important pets, pet candies, pet item (needs to be mapped)
-    pet_exp = pet.get('exp', 0)
-    pet_rarity = pet.get('tier', '')
 
-    if pet.get('type', '') == 'GOLDEN_DRAGON':
-        level, exp = constants_parsing.getGoldenDragLevel(pet_exp)
-    else:
-        level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
-    print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
+pets.getImportantPets(pet_data)
+
+pets.getGeneralPetData(profile_specific)
 
 printHeader('Slayers')
 for slayer in constants['slayers']:
