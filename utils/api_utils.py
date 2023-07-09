@@ -23,7 +23,7 @@ def getPlayerData(username):
         player_data = getSkyBlockData(uuid.json()['id'])
         player_data.raise_for_status()
 
-        return player_data.json().get('profiles', []), uuid
+        return player_data.json().get('profiles', []), uuid.json()['id']
 
     except requests.exceptions.RequestException as e:
         print(f'Error occurred: {str(e)}')
