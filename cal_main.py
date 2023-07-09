@@ -1,33 +1,12 @@
-import requests
 import json
 
-from secrets import API_KEY
 from utils.text_utils import printSmallHeader, printHeader
+from utils.api_utils import getPlayerData
 
 from features import skills, dungeons, collections, accessories, pets, money, slayers, mining, general
 
-
-def fetchData():
-    try:
-        username = input('Username: ')
-        print('Getting player UUID')
-        response = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{username}')
-        response.raise_for_status()
-        player_uuid = response.json()['id']
-        print('Getting player data from the Hypixel API')
-        response = requests.get('https://api.hypixel.net/skyblock/profiles?key=' + API_KEY + '&uuid=' + player_uuid)
-        response.raise_for_status()
-        return response.json().get('profiles', []), player_uuid
-
-    except requests.exceptions.RequestException as e:
-        print(f'Error occurred: {str(e)}')
-    except KeyError:
-        print('Invalid username or user not found. Please try again.')
-    except json.JSONDecodeError:
-        print('Invalid JSON received.')
-
-
-data, uuid = fetchData()
+username = input('Username: ')
+data, uuid = getPlayerData(username)
 # todo Cache data somehow between runs of the program, maybe on start check creation date of each cached user and git
 #  ignore the folder. Also deal with disabled api
 #  maybe save as a custom json with only necessary info
