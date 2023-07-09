@@ -3,7 +3,7 @@ def printHeader(text):
 
 
 def printSmallHeader(text):
-    print(f'------------{text}------------')
+    print(f'------------ {text} ------------')
 
 
 def fmt_num(number):
