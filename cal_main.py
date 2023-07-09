@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections, accessories, pets, money, slayers
+from features import skills, dungeons, collections, accessories, pets, money, slayers, mining
 
 
 def fetchData():
@@ -93,6 +93,7 @@ collections.getCollectionAmount(profile_specific.get('collection', {}))
 
 # todo make not possibly null
 printHeader('Coins')
+# print money stuff
 money.printPurse(profile_specific)
 money.printBank(profile)
 
@@ -114,35 +115,12 @@ printHeader('Slayers')
 # print the data for slayers
 slayers.getSlayerData(slayer_data)
 
-# todo calculate nucleus runs done through placed crystals?
-printHeader('Heart Of The Mountain')
-level, exp = constants_parsing.getHotmLevel(mining_data.get('experience', 0))
-if level == 7:
-    print('HOTM 7')
-else:
-    print(f'HOTM {level} with {exp} exp')
-print(f'Tokens Spent:', mining_data.get('tokens_spent', 0))
-printSmallHeader('Mithril Powder')
-spent = mining_data.get('powder_spent_mithril', 0)
-available = mining_data.get('powder_mithril_total', 0)
-print('Total:', format(available + spent, ','))
-print('Available:', format(available, ','))
-print('Spent:', format(spent, ','))
-printSmallHeader('Gemstone Powder')
-spent = mining_data.get('powder_spent_gemstone', 0)
-available = mining_data.get('powder_gemstone_total', 0)
-print('Total:', format(available + spent, ','))
-print('Available:', format(available, ','))
-print('Spent:', format(spent, ','))
+printHeader('Mining')
+# print hotm level
+mining.printHotmLevel(mining_data)
+# print powder stats for each
+mining.printPowderStats(mining_data, 'mithril')
+mining.printPowderStats(mining_data, 'gemstone')
+# print info about the hotm perks
+mining.getHotmPerks(mining_data)
 
-# todo filter some of these perks
-printSmallHeader('HOTM Perks')
-ability_name = mining_data.get('selected_pickaxe_ability', 'None')
-print('Selected pickaxe ability:', constants['hotm_perks'].get(ability_name, ability_name))
-for perk in mining_data.get('nodes', {}):
-    if 'toggle' in perk:
-        continue
-    perk_name = constants['hotm_perks'].get(perk, perk)
-    print(perk_name + ': Level', mining_data.get('nodes', {}).get(perk, 0))
-
-# more later
