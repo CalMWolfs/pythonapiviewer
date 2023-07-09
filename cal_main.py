@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections, accessories, pets, money
+from features import skills, dungeons, collections, accessories, pets, money, slayers
 
 
 def fetchData():
@@ -111,18 +111,8 @@ pets.getImportantPets(pet_data)
 pets.getGeneralPetData(profile_specific)
 
 printHeader('Slayers')
-for slayer in constants['slayers']:
-    slayer_name = constants['slayers'].get(slayer, slayer)
-    printSmallHeader(slayer_name)
-    level, exp = constants_parsing.getSlayerLevel(slayer, slayer_data.get(slayer, {}).get('xp', 0))
-    if exp == '0':
-        print(f'No {slayer_name} progress')
-        continue
-    print(f'{slayer_name} {level} with {exp} exp')
-
-    for tier in range(constants['highest_slayer_tier'][slayer]):
-        kills = slayer_data.get(slayer, {}).get('boss_kills_tier_' + str(tier), 0)
-        print(f'Tier {tier + 1} kills:', format(kills, ','))
+# print the data for slayers
+slayers.getSlayerData(slayer_data)
 
 # todo calculate nucleus runs done through placed crystals?
 printHeader('Heart Of The Mountain')
