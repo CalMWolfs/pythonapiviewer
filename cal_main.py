@@ -5,7 +5,7 @@ from secrets import API_KEY
 import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections
+from features import skills, dungeons, collections, accessories
 
 
 def fetchData():
@@ -101,14 +101,8 @@ print('Bank:', format(int(profile.get('banking', {}).get('balance', 0)), ','))
 # networth_data = networth.json()
 
 printHeader('Accessories')
-mp = accessories_data.get('highest_magical_power', 0)
-print(f'Magical Power:', format(mp, ','))
-print(f'Selected Power:', accessories_data.get('selected_power', 'None'))
-printSmallHeader('Tuning Points')
-for stat in accessories_data.get('tuning', {}).get('slot_0', {}):
-    allocated = accessories_data.get('tuning', {}).get('slot_0', {}).get(stat, 0)
-    if allocated != 0:
-        print(f'{stat}:', allocated, 'points')
+# print magical power, selected power and tuning points allocation
+accessories.getAccessoryData(accessories_data)
 
 # todo only mark as important based on rarity (why does hypixel not use internal names here????)
 printHeader('Pets')

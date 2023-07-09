@@ -171,5 +171,15 @@
     "maniac_miner": "Maniac Miner",
     "random_event": "Random Event",
     "special_0": "Peak of the Mountain"
+  },
+  "tuning_points": {
+    "health": "Health",
+    "defense": "Defense",
+    "walk_speed": "Speed",
+    "strength": "Strength",
+    "critical_damage": "Crit Damage",
+    "critical_chance": "Crit Chance",
+    "attack_speed": "Attack Speed",
+    "intelligence": "Intelligence"
   }
 }
