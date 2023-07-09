@@ -11,9 +11,9 @@ with open('constants.json') as file:
 def getHotmLevel(data):
     level, exp = constants_parsing.getHotmLevel(data.get('experience', 0))
     if level == 7:
-        print('HOTM 7')
+        print('Heart Of The Mountain Level 7')
     else:
-        print(f'HOTM {level} with {exp} exp')
+        print(f'Heart Of The Mountain Level {level} with {exp} exp')
 
 
 def getPowderStats(data, name):
