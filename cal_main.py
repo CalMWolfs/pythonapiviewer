@@ -1,7 +1,7 @@
 import json
 
 from utils.text_utils import printSmallHeader, printHeader
-from utils.api_utils import getPlayerData
+from utils.api_utils import getPlayerData, getSoopyNetworth
 from utils.player_selection import selectProfile
 
 from features import skills, dungeons, collections, accessories, pets, money, slayers, mining, general
@@ -10,6 +10,10 @@ username = input('Username: ')
 player_data, uuid = getPlayerData(username)
 
 profile_data, profile_num = selectProfile(player_data, uuid)
+
+# todo run async
+# networth_data = getSoopyNetworth(player_data, uuid)
+# print(networth_data)
 
 profile_specific = profile_data['members'][uuid]
 dungeons_data = profile_specific.get('dungeons', {})
@@ -47,10 +51,6 @@ printHeader('Coins')
 # print money stuff
 money.getPurse(profile_specific)
 money.getBank(player_data[profile_num])
-
-# get networth for user, not used rn but this is how you get the json that breaks down the networth categorically
-# networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
-# networth_data = networth.json()
 
 printHeader('Accessories')
 # print magical power, selected power and tuning points allocation

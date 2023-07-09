@@ -5,13 +5,13 @@ from secrets import API_KEY
 
 
 def getPlayerUUID(player):
-    response = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}')
-    return response
+    uuid = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}')
+    return uuid
 
 
 def getSkyBlockData(uuid):
-    response = requests.get('https://api.hypixel.net/skyblock/profiles?key=' + API_KEY + '&uuid=' + uuid)
-    return response
+    data = requests.get('https://api.hypixel.net/skyblock/profiles?key=' + API_KEY + '&uuid=' + uuid)
+    return data
 
 
 # todo better error stuff I guess
@@ -32,3 +32,7 @@ def getPlayerData(username):
     except json.JSONDecodeError:
         print('Invalid JSON received.')
 
+
+def getSoopyNetworth(player_data, uuid):
+    networth_data = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=player_data)
+    return networth_data.json()
