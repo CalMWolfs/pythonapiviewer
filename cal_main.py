@@ -2,10 +2,9 @@ import requests
 import json
 
 from secrets import API_KEY
-import constants_parsing
 from utils.text_formatting import printSmallHeader, printHeader
 
-from features import skills, dungeons, collections, accessories, pets, money, slayers, mining
+from features import skills, dungeons, collections, accessories, pets, money, slayers, mining, general
 
 
 def fetchData():
@@ -68,11 +67,10 @@ mining_data = profile_specific.get('mining_core', {})
 with open('constants.json') as file:
     constants = json.load(file)
 
-# todo move
-printHeader('SkyBlock level and Skill levels')
-skyblock_level = profile_specific.get('leveling', {}).get('experience', 0) / 100
-print(f'SkyBlock level: {skyblock_level}')
+printHeader('General Stats')
+general.getSkyblockLevel(profile_specific)
 
+printHeader('Skills')
 # Prints each skills experience and level along with skill average
 skills.getSkillData(profile_specific)
 
