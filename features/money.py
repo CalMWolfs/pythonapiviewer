@@ -1,9 +1,9 @@
 from utils.text_formatting import fmt_num
 
 
-def printBank(data):
+def getBank(data):
     print('Bank:', fmt_num(data.get('banking', {}).get('balance', 0)))
 
 
-def printPurse(data):
+def getPurse(data):
     print('Purse:', fmt_num(data.get('coin_purse', 0)))

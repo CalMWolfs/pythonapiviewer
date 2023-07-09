@@ -8,7 +8,7 @@ with open('constants.json') as file:
     constants = json.load(file)
 
 
-def printHotmLevel(data):
+def getHotmLevel(data):
     level, exp = constants_parsing.getHotmLevel(data.get('experience', 0))
     if level == 7:
         print('HOTM 7')
@@ -16,7 +16,7 @@ def printHotmLevel(data):
         print(f'HOTM {level} with {exp} exp')
 
 
-def printPowderStats(data, name):
+def getPowderStats(data, name):
     printSmallHeader(f'{name.capitalize()} Powder')
     spent = data.get('powder_spent_' + name, 0)
     available = data.get('powder_' + name + '_total', 0)

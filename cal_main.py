@@ -92,8 +92,8 @@ collections.getCollectionAmount(profile_specific.get('collection', {}))
 # todo make not possibly null
 printHeader('Coins')
 # print money stuff
-money.printPurse(profile_specific)
-money.printBank(profile)
+money.getPurse(profile_specific)
+money.getBank(profile)
 
 # get networth for user, not used rn but this is how you get the json that breaks down the networth categorically
 # networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
@@ -115,10 +115,10 @@ slayers.getSlayerData(slayer_data)
 
 printHeader('Mining')
 # print hotm level
-mining.printHotmLevel(mining_data)
+mining.getHotmLevel(mining_data)
 # print powder stats for each
-mining.printPowderStats(mining_data, 'mithril')
-mining.printPowderStats(mining_data, 'gemstone')
+mining.getPowderStats(mining_data, 'mithril')
+mining.getPowderStats(mining_data, 'gemstone')
 # print info about the hotm perks
 mining.getHotmPerks(mining_data)
 
