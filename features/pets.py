@@ -1,7 +1,7 @@
 import json
 
 import constants_parsing
-from utils.text_formatting import printSmallHeader
+from utils.text_formatting import printSmallHeader, fmt_str
 
 
 with open('constants.json') as file:
@@ -15,7 +15,7 @@ def getGeneralPetData(data):
     print('Highest Pet Score:', pet_score)
 
 
-# todo pet items and improve the printed message in console
+# todo pet items and maybe split pets by type so can display their stats better?
 def getImportantPets(data):
     for pet in data:
         pet_name = pet.get('type', 0)
@@ -26,7 +26,8 @@ def getImportantPets(data):
                 pet_exp = pet.get('exp', 0)
 
                 if pet.get('type', '') == 'GOLDEN_DRAGON':
-                    level, exp = constants_parsing.getGoldenDragLevel(pet_exp)
+                    pet_lvl, pet_exp = constants_parsing.getGoldenDragLevel(pet_exp)
                 else:
-                    level, exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
-                print(pet_rarity, pet.get('type', ''), f'lvl {level} with {exp} exp')
+                    pet_lvl, pet_exp = constants_parsing.getPetLevel(pet_rarity, pet_exp)
+                pet_name = fmt_str(pet_name)
+                print(f'Level {pet_lvl} {pet_rarity.capitalize()} {pet_name} with {pet_exp} total experience')
