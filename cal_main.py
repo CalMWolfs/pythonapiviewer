@@ -1,7 +1,7 @@
 import json
 
-from utils.text_utils import printSmallHeader, printHeader
-from utils.api_utils import getPlayerData, getSoopyNetworth
+from utils.text_utils import printHeader
+from utils.api_utils import getPlayerData
 from utils.player_selection import selectProfile
 
 from features import skills, dungeons, collections, accessories, pets, money, slayers, mining, general
@@ -11,11 +11,9 @@ player_data, uuid = getPlayerData(username)
 
 profile_data, profile_num = selectProfile(player_data, uuid)
 
-# todo run async
-# networth_data = getSoopyNetworth(player_data, uuid)
-# print(networth_data)
-
 profile_specific = profile_data['members'][uuid]
+profile_id = player_data[profile_num].get('profile_id', '')
+
 dungeons_data = profile_specific.get('dungeons', {})
 accessories_data = profile_specific.get('accessory_bag_storage', {})
 pet_data = profile_specific.get('pets', {})
@@ -38,7 +36,6 @@ dungeons.getDungeonsLevel(dungeons_data)
 # print class levels
 dungeons.getClassLevels(dungeons_data)
 # print stats for each floor than overall stats
-printSmallHeader('Dungeons Stats')
 dungeons.getFloorData(dungeons_data.get('dungeon_types', {}))
 
 printHeader('Collections')
@@ -74,3 +71,6 @@ mining.getPowderStats(mining_data, 'mithril')
 mining.getPowderStats(mining_data, 'gemstone')
 # print info about the hotm perks
 mining.getHotmPerks(mining_data)
+
+printHeader('Networth')
+money.getSoopyNetworth(player_data, uuid, profile_id)

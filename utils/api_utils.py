@@ -33,6 +33,6 @@ def getPlayerData(username):
         print('Invalid JSON received.')
 
 
-def getSoopyNetworth(player_data, uuid):
+def getSoopyNetworthData(player_data, uuid):
     networth_data = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=player_data)
-    return networth_data.json()
+    return networth_data.json().get('data', {})

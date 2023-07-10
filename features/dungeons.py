@@ -64,6 +64,7 @@ def getDungeonData(data, floor, master_mode):
 
 
 def getFloorData(dungeons_data):
+    printSmallHeader('Dungeons Stats')
     # todo maybe only say unattempted to one floor
     path = dungeons_data.get('catacombs', {})
     for floor in range(8):
