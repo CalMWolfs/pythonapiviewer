@@ -34,13 +34,17 @@ def getDungeonData(data, floor, master_mode):
     else:
         floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
 
+        completions = data.get('tier_completions', 0).get(str(floor), 0)
+        if completions == 0:
+            print(floor_name, 'has not been completed yet')
+            return
+
         attempted = data.get('times_played', 0).get(str(floor), 0)
         if attempted == 0:
             print(floor_name, 'has not been attempted yet')
             return
 
         watcher_kills = data.get('watcher_kills', 0).get(str(floor), 0)
-        completions = data.get('tier_completions', 0).get(str(floor), 0)
         printSmallHeader(floor_name)
         print('Times Attempted:', fmt_num(attempted))
         print('Watcher Kills:', fmt_num(watcher_kills))
