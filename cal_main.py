@@ -72,5 +72,6 @@ mining.getPowderStats(mining_data, 'gemstone')
 # print info about the hotm perks
 mining.getHotmPerks(mining_data)
 
+# todo fetch this data while they are choosing which profile to speed up the program
 printHeader('Networth')
 money.getSoopyNetworth(player_data, uuid, profile_id)
