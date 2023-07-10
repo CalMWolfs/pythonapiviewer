@@ -1,7 +1,7 @@
 import json
 
 import constants_parsing
-from utils.text_utils import printSmallHeader, fmt_num, fmt_time
+from utils.text_utils import printSmallHeader, fmt_num, fmt_time, fmt_str
 
 with open('constants.json') as file:
     constants = json.load(file)
@@ -84,3 +84,23 @@ def getFloorData(dungeons_data):
     print('Total Runs Completed:', fmt_num(total_runs))
     print('Total Master Runs Completed:', fmt_num(master_runs))
     print('Secret count coming later')
+
+
+def getDungeonChests(dungeon_data):
+    chest_data = dungeon_data.get('treasures', {}).get('chests', [])
+    if not chest_data:
+        print('No dungeon chest data')
+        return
+
+    for chest in chest_data:
+        chest_type = chest.get('treasure_type')
+        printSmallHeader(f'{fmt_str(chest_type)} Chest Rewards')
+
+        rewards = chest.get('rewards', {}).get('rewards', [])
+        if not rewards:
+            print('No rewards found for this chest')
+            return
+
+        # todo format books and essence differently
+        for reward in rewards:
+            print(fmt_str(reward))
