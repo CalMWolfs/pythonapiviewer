@@ -53,7 +53,6 @@ def getDungeonData(data, floor, master_mode):
     fastest_run = data.get('fastest_time', 0).get(str(floor), 0)
     fastest_s_plus = data.get('fastest_time_s_plus', 0).get(str(floor), 0)
 
-    # save values for later
     if completions > 0:
         global total_runs
         total_runs += completions
@@ -92,7 +91,6 @@ def getDungeonChests(dungeon_data):
         print('No dungeon chest data')
         return
 
-    # todo summarise runs better. as this is multiple for same run. Can use other data for this
     for chest in chest_data:
         chest_type = chest.get('treasure_type')
         printSmallHeader(f'{fmt_str(chest_type)} Chest Rewards')
@@ -119,7 +117,6 @@ def formatDungeonRewards(rewards):
 
     undead_essence = wither_essence = 0
 
-    # todo format books and essence differently
     for reward in rewards:
         if 'ESSENCE:WITHER' in reward:
             wither_essence = reward.split(':')[-1]
