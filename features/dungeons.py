@@ -92,15 +92,40 @@ def getDungeonChests(dungeon_data):
         print('No dungeon chest data')
         return
 
+    # todo summarise runs better. as this is multiple for same run. Can use other data for this
     for chest in chest_data:
         chest_type = chest.get('treasure_type')
         printSmallHeader(f'{fmt_str(chest_type)} Chest Rewards')
 
         rewards = chest.get('rewards', {}).get('rewards', [])
-        if not rewards:
-            print('No rewards found for this chest')
-            return
+        formatDungeonRewards(rewards)
 
-        # todo format books and essence differently
-        for reward in rewards:
+        reroll_count = chest.get('rerolls')
+        bought = chest.get('paid')
+
+        if reroll_count == 1:
+            print('Chest was re-rolled')
+
+        if bought:
+            print('This chest was bought')
+        else:
+            print('This chest was not bought')
+
+
+def formatDungeonRewards(rewards):
+    if not rewards:
+        print('No rewards found for this chest')
+        return
+
+    undead_essence = wither_essence = 0
+
+    # todo format books and essence differently
+    for reward in rewards:
+        if 'ESSENCE:WITHER' in reward:
+            wither_essence = reward.split(':')[-1]
+        elif 'ESSENCE:UNDEAD' in reward:
+            undead_essence = reward.split(':')[-1]
+        else:
             print(fmt_str(reward))
+
+    print(f'Essence: {undead_essence} Undead, {wither_essence} Wither')
