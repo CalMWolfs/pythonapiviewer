@@ -23,8 +23,8 @@ def getClassLevels(dungeons_data):
 
 
 def getDungeonData(data, floor, master_mode):
+    floor_name = formatFloorName(floor, master_mode)
     if master_mode:
-        floor_name = f'Master Floor {floor}'
         completions = data.get('tier_completions', 0).get(str(floor), 0)
         if completions == 0:
             print(floor_name, 'has not been completed yet')
@@ -32,8 +32,6 @@ def getDungeonData(data, floor, master_mode):
         printSmallHeader(floor_name)
 
     else:
-        floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
-
         completions = data.get('tier_completions', 0).get(str(floor), 0)
         if completions == 0:
             print(floor_name, 'has not been completed yet')
@@ -85,31 +83,6 @@ def getFloorData(dungeons_data):
     print('Secret count coming later')
 
 
-def getDungeonChests(dungeon_data):
-    chest_data = dungeon_data.get('treasures', {}).get('chests', [])
-    if not chest_data:
-        print('No dungeon chest data')
-        return
-
-    for chest in chest_data:
-        chest_type = chest.get('treasure_type')
-        printSmallHeader(f'{fmt_str(chest_type)} Chest Rewards')
-
-        rewards = chest.get('rewards', {}).get('rewards', [])
-        formatDungeonRewards(rewards)
-
-        reroll_count = chest.get('rerolls')
-        bought = chest.get('paid')
-
-        if reroll_count == 1:
-            print('Chest was re-rolled')
-
-        if bought:
-            print('This chest was bought')
-        else:
-            print('This chest was not bought')
-
-
 def formatDungeonRewards(rewards):
     if not rewards:
         print('No rewards found for this chest')
@@ -133,3 +106,38 @@ def formatDungeonRewards(rewards):
                 print(fmt_str(reward))
 
     print(f'Essence: {undead_essence} Undead, {wither_essence} Wither')
+
+
+def getRecentRuns(data):
+    runs = data.get('treasures', {}).get('runs', [])
+    for index, run in enumerate(runs, start=1):
+        # could also get teammates and their class level through regex pattern
+        run_id = run.get('run_id', '')
+        run_is_mm = run.get('dungeon_type') == 'master_catacombs'
+        run_floor = run.get('dungeon_tier')
+
+        printSmallHeader(f'Run {index}: {formatFloorName(run_floor, run_is_mm)}')
+        getChestsByID(data, run_id)
+
+
+def getChestsByID(data, run_id):
+    rereoll_count = 0
+    chest_data = data.get('treasures', {}).get('chests', [])
+    for chest in chest_data:
+        if run_id != chest.get('run_id'):
+            continue
+        rereoll_count = rereoll_count + chest.get('rerolls')
+
+        if chest.get('paid'):
+            chest_type = chest.get('treasure_type')
+            print(f'{fmt_str(chest_type)} Chest')
+            formatDungeonRewards(chest.get('rewards', {}).get('rewards', []))
+
+    print(f'Rerolled rewards {rereoll_count} times')
+
+
+def formatFloorName(floor, master_mode):
+    if master_mode:
+        return f'Master Floor {floor}'
+    else:
+        return 'Entrance' if floor == 0 else f'Floor {floor}'
