@@ -216,5 +216,19 @@
     "critical_chance": "Crit Chance",
     "attack_speed": "Attack Speed",
     "intelligence": "Intelligence"
-  }
+  },
+  "ultimate_enchantments": [
+    "bank",
+    "one_for_all",
+    "soul_eater",
+    "combo",
+    "swarm",
+    "wise",
+    "rend",
+    "last_stand",
+    "legion",
+    "no_pain_no_gain",
+    "wisdom",
+    "jerry"
+  ]
 }

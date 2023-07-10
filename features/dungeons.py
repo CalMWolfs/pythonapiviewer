@@ -126,6 +126,13 @@ def formatDungeonRewards(rewards):
         elif 'ESSENCE:UNDEAD' in reward:
             undead_essence = reward.split(':')[-1]
         else:
-            print(fmt_str(reward))
+            split = reward.rsplit('_', 1)
+            if split[1].isdigit():
+                if split[0] in constants['ultimate_enchantments']:
+                    print(f'Ultimate {fmt_str(reward)} Book')
+                else:
+                    print(f'{fmt_str(reward)} Book')
+            else:
+                print(fmt_str(reward))
 
     print(f'Essence: {undead_essence} Undead, {wither_essence} Wither')
