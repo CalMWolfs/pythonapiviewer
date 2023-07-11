@@ -4,6 +4,7 @@ import json
 from secrets import API_KEY
 
 
+# todo better error handling over the whole project
 def getPlayerUUID(player):
     uuid = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{player}')
     return uuid
@@ -14,7 +15,11 @@ def getSkyBlockData(uuid):
     return data
 
 
-# todo better error stuff I guess
+def getMuseumData(profile_id):
+    data = requests.get('https://api.hypixel.net/skyblock/museum?key=' + API_KEY + '&profile=' + profile_id)
+    return data
+
+
 def getPlayerData(username):
     try:
         uuid = getPlayerUUID(username)
