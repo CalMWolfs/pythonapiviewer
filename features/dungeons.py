@@ -122,6 +122,7 @@ def getRecentRuns(data):
 
 def getChestsByID(data, run_id):
     rereoll_count = 0
+    chest_count = 0
     chest_data = data.get('treasures', {}).get('chests', [])
     for chest in chest_data:
         if run_id != chest.get('run_id'):
@@ -129,10 +130,13 @@ def getChestsByID(data, run_id):
         rereoll_count = rereoll_count + chest.get('rerolls')
 
         if chest.get('paid'):
+            chest_count = chest_count + 1
             chest_type = chest.get('treasure_type')
             print(f'{fmt_str(chest_type)} Chest')
             formatDungeonRewards(chest.get('rewards', {}).get('rewards', []))
 
+    if chest_count == 0:
+        print('No chests were bought this run')
     print(f'Rerolled rewards {rereoll_count} times')
 
 
