@@ -1,6 +1,6 @@
 import json
 
-from utils.text_utils import printSmallHeader, printHeader
+from utils.text_utils import printHeader
 from utils.api_utils import getPlayerData
 from utils.player_selection import selectProfile
 
@@ -12,6 +12,8 @@ player_data, uuid = getPlayerData(username)
 profile_data, profile_num = selectProfile(player_data, uuid)
 
 profile_specific = profile_data['members'][uuid]
+profile_id = player_data[profile_num].get('profile_id', '')
+
 dungeons_data = profile_specific.get('dungeons', {})
 accessories_data = profile_specific.get('accessory_bag_storage', {})
 pet_data = profile_specific.get('pets', {})
@@ -34,7 +36,6 @@ dungeons.getDungeonsLevel(dungeons_data)
 # print class levels
 dungeons.getClassLevels(dungeons_data)
 # print stats for each floor than overall stats
-printSmallHeader('Dungeons Stats')
 dungeons.getFloorData(dungeons_data.get('dungeon_types', {}))
 
 printHeader('Collections')
@@ -47,10 +48,6 @@ printHeader('Coins')
 # print money stuff
 money.getPurse(profile_specific)
 money.getBank(player_data[profile_num])
-
-# get networth for user, not used rn but this is how you get the json that breaks down the networth categorically
-# networth = requests.post(f'https://soopy.dev/api/v2/player_networth/{uuid}', json=data)
-# networth_data = networth.json()
 
 printHeader('Accessories')
 # print magical power, selected power and tuning points allocation
@@ -74,3 +71,11 @@ mining.getPowderStats(mining_data, 'mithril')
 mining.getPowderStats(mining_data, 'gemstone')
 # print info about the hotm perks
 mining.getHotmPerks(mining_data)
+
+printHeader('Recent Dungeon Runs and Rewards')
+# prints all of the loot in dungeon chests
+dungeons.getRecentRuns(dungeons_data)
+
+# todo fetch this data while they are choosing which profile to speed up the program
+printHeader('Networth')
+money.getSoopyNetworth(player_data, uuid, profile_id)

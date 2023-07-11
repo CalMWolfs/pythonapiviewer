@@ -1,7 +1,7 @@
 import json
 
 import constants_parsing
-from utils.text_utils import printSmallHeader, fmt_num, fmt_time
+from utils.text_utils import printSmallHeader, fmt_num, fmt_time, fmt_str
 
 with open('constants.json') as file:
     constants = json.load(file)
@@ -23,8 +23,8 @@ def getClassLevels(dungeons_data):
 
 
 def getDungeonData(data, floor, master_mode):
+    floor_name = formatFloorName(floor, master_mode)
     if master_mode:
-        floor_name = f'Master Floor {floor}'
         completions = data.get('tier_completions', 0).get(str(floor), 0)
         if completions == 0:
             print(floor_name, 'has not been completed yet')
@@ -32,7 +32,10 @@ def getDungeonData(data, floor, master_mode):
         printSmallHeader(floor_name)
 
     else:
-        floor_name = 'Entrance' if floor == 0 else f'Floor {floor}'
+        completions = data.get('tier_completions', 0).get(str(floor), 0)
+        if completions == 0:
+            print(floor_name, 'has not been completed yet')
+            return
 
         completions = data.get('tier_completions', 0).get(str(floor), 0)
         if completions == 0:
@@ -53,7 +56,6 @@ def getDungeonData(data, floor, master_mode):
     fastest_run = data.get('fastest_time', 0).get(str(floor), 0)
     fastest_s_plus = data.get('fastest_time_s_plus', 0).get(str(floor), 0)
 
-    # save values for later
     if completions > 0:
         global total_runs
         total_runs += completions
@@ -68,6 +70,7 @@ def getDungeonData(data, floor, master_mode):
 
 
 def getFloorData(dungeons_data):
+    printSmallHeader('Dungeons Stats')
     # todo maybe only say unattempted to one floor
     path = dungeons_data.get('catacombs', {})
     for floor in range(8):
@@ -83,3 +86,67 @@ def getFloorData(dungeons_data):
     print('Total Runs Completed:', fmt_num(total_runs))
     print('Total Master Runs Completed:', fmt_num(master_runs))
     print('Secret count coming later')
+
+
+def formatDungeonRewards(rewards):
+    if not rewards:
+        print('No rewards found for this chest')
+        return
+
+    undead_essence = wither_essence = 0
+
+    for reward in rewards:
+        if 'ESSENCE:WITHER' in reward:
+            wither_essence = reward.split(':')[-1]
+        elif 'ESSENCE:UNDEAD' in reward:
+            undead_essence = reward.split(':')[-1]
+        else:
+            split = reward.rsplit('_', 1)
+            if split[1].isdigit():
+                if split[0] in constants['ultimate_enchantments']:
+                    print(f'Ultimate {fmt_str(reward)} Book')
+                else:
+                    print(f'{fmt_str(reward)} Book')
+            else:
+                print(fmt_str(reward))
+
+    print(f'Essence: {undead_essence} Undead, {wither_essence} Wither')
+
+
+def getRecentRuns(data):
+    runs = data.get('treasures', {}).get('runs', [])
+    for index, run in enumerate(runs, start=1):
+        # could also get teammates and their class level through regex pattern
+        run_id = run.get('run_id', '')
+        run_is_mm = run.get('dungeon_type') == 'master_catacombs'
+        run_floor = run.get('dungeon_tier')
+
+        printSmallHeader(f'Run {index}: {formatFloorName(run_floor, run_is_mm)}')
+        getChestsByID(data, run_id)
+
+
+def getChestsByID(data, run_id):
+    rereoll_count = 0
+    chest_count = 0
+    chest_data = data.get('treasures', {}).get('chests', [])
+    for chest in chest_data:
+        if run_id != chest.get('run_id'):
+            continue
+        rereoll_count = rereoll_count + chest.get('rerolls')
+
+        if chest.get('paid'):
+            chest_count = chest_count + 1
+            chest_type = chest.get('treasure_type')
+            print(f'{fmt_str(chest_type)} Chest')
+            formatDungeonRewards(chest.get('rewards', {}).get('rewards', []))
+
+    if chest_count == 0:
+        print('No chests were bought this run')
+    print(f'Rerolled rewards {rereoll_count} times')
+
+
+def formatFloorName(floor, master_mode):
+    if master_mode:
+        return f'Master Floor {floor}'
+    else:
+        return 'Entrance' if floor == 0 else f'Floor {floor}'
