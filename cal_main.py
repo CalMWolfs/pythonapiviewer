@@ -12,7 +12,7 @@ player_data, uuid = getPlayerData(username)
 profile_data, profile_num = selectProfile(player_data, uuid)
 
 profile_specific = profile_data['members'][uuid]
-profile_id = player_data[profile_num].get('profile_id', '')
+profile_id = profile_data.get('profile_id', '')
 
 dungeons_data = profile_specific.get('dungeons', {})
 accessories_data = profile_specific.get('accessory_bag_storage', {})
